@@ -1,0 +1,36 @@
+import { createWebHistory, createRouter } from 'vue-router';
+import ContactBook from '@/view/admin/ContactBook.vue';
+// import ContactBook from '@/view/admin/ContactEdit.vue';
+// import ContactBook from '@/view/admin/ContactAdd.vue';
+// import ContactBook from '@/view/admin/NotFound.vue';
+
+const routes = [
+  {
+    path: '/',
+    name: 'contactbook',
+    component: ContactBook,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "notfound",
+    component: () => import("@/view/admin/NotFound.vue"),
+},
+{
+    path: "/contacts/:id",
+    name: "contact.edit",
+    component: () => import("@/view/admin/ContactEdit.vue"),
+    props: true // Truyền các biến trong $route.params vào làm props
+},
+{
+    path: "/contacts/create",
+    name: "contact.add",
+    component: () => import("@/view/admin/ContactAdd.vue"),
+    props: true // Truyền các biến trong $route.params vào làm props
+},
+];
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
+});
+export default router;
